@@ -11,6 +11,7 @@ import Prelude
 
 data Language
     = English
+    | German
     deriving (Generic, Show, Read, Eq)
 derivePersistField "Language"
 
@@ -18,8 +19,10 @@ instance FromJSON Language
 instance ToJSON Language
 
 instance FromText Language where
-    fromText "english" = Just English
+    fromText "English" = Just English
+    fromText "German"  = Just German
     fromText _         = Nothing
 
 instance ToText Language where
-    toText English = "english"
+    toText English = "English"
+    toText German  = "German"

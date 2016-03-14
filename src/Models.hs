@@ -61,33 +61,38 @@ DDictionary json
 
 
 data Word = Word
-    { wordId        :: Int64
-    , wordName      :: Text
+    { wordName      :: Text
     , wordLang      :: Language
     , wordKnowledge :: Knowledge
-    } deriving (Generic)
+    } deriving (Show, Generic)
 
 data User = User
-    { userId       :: Int64
-    , username     :: Text
+    { username     :: Text
     , userPassword :: Text
     , userEmail    :: Text
     , userAbout    :: Maybe Text
-    } deriving (Generic)
+    } deriving (Show, Generic)
 
 data Dictionary = Dictionary
     { dictLang    :: Language
-    , dictId      :: Int64
     , dictEntries :: [Word]
-    } deriving (Generic)
+    } deriving (Show, Generic)
+
+dictionaryToDDictionary :: Int64 -> Dictionary -> DDictionary
+dictionaryToDDictionary userId Dictionary{..} =
+    DDictionary dictLang (PG.toSqlKey userId)
 
 userToDUser :: User -> DUser
 userToDUser User{..} =
     DUser username userPassword userEmail userAbout
 
-dWordToWord :: Int64 -> DWord -> Word
-dWordToWord id DWord{..} =
-    Word id dWordName dWordLang dWordKnowledge
+dWordToWord :: DWord -> Word
+dWordToWord DWord{..} =
+    Word dWordName dWordLang dWordKnowledge
+
+wordToDWord :: Int64 -> Word -> DWord
+wordToDWord id Word{..}=
+    DWord wordName wordLang wordKnowledge (PG.toSqlKey id)
 
 -- Derive all the Json instances (Boilerplate)
 instance ToJSON Word
