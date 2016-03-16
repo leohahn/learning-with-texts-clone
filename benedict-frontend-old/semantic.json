@@ -1,5 +1,5 @@
 {
-  "base": "dist/styles/semantic",
+  "base": "dist/semantic",
   "paths": {
     "source": {
       "config": "src/theme.config",
