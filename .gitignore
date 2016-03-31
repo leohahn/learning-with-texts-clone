@@ -15,3 +15,6 @@ cabal.sandbox.config
 *.aux
 *.hp
 .stack-work/
+benedict-frontend/node_modules/
+benedict-frontend-old/
+benedict-frontend-cycle/
