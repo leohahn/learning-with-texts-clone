@@ -12,14 +12,14 @@ module Lib
     ( startApp
     ) where
 
-import Database.Persist.Postgresql (runSqlPool)
-import Network.Wai.Handler.Warp    (run)
-import System.Environment          (lookupEnv)
+import           Database.Persist.Postgresql (runSqlPool)
+import           Network.Wai.Handler.Warp    (run)
+import           System.Environment          (lookupEnv)
 
-import Api (app)
-import Config (Config(..))
-import qualified Config as Conf
-import Models (doMigrations)
+import           Api                         (app)
+import           Config                      (Config (..))
+import qualified Config                      as Conf
+import           Models                      (doMigrations)
 
 
 startApp :: IO ()
@@ -41,5 +41,3 @@ lookupSetting env def = do
     p <- lookupEnv env
     return $ case p of Nothing -> def
                        Just a  -> read a
-
-

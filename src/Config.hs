@@ -58,4 +58,4 @@ envPool Production = 8
 
 
 connStr :: Environment -> Db.ConnectionString
-connStr _ = "host=localhost dbname=textlearning user=lhahn password=leocoh12 port=5432"
+connStr _ = "host=localhost dbname=benedict user=lhahn password=password port=5432"

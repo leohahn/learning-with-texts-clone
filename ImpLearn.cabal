@@ -17,18 +17,23 @@ library
   hs-source-dirs:      src
   exposed-modules:     Lib
   other-modules:       Api
+                     , ClientModels
                      , Config
+                     , Forms
                      , Knowledge
                      , Language
                      , Models
   build-depends:       base >= 4.7 && < 5
                      , aeson
+                     , containers
                      , either
+                     , http-api-data
                      , monad-logger
                      , mtl
                      , persistent
                      , persistent-postgresql
                      , persistent-template
+                     , random
                      , servant
                      , servant-server
                      , text

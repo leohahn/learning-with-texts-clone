@@ -1,0 +1,128 @@
+
+./src/Models.hs,113
+module Models Models13,14
+doMigrations doMigrations85,86
+doMigrations doMigrations86,87
+runDb runDb88,89
+
+./src/Language.hs,108
+data LanguageLanguage13,14
+    = EnglishEnglish14,15
+    | GermanGerman15,16
+instance instance19,20
+
+./src/Config.hs,509
+data Config Config20,21
+data Config = ConfigConfig20,21
+    { getPool getPool21,22
+    , getEnv getEnv22,23
+data EnvironmentEnvironment26,27
+    = DevelopmentDevelopment27,28
+    | TestTest28,29
+    | ProductionProduction29,30
+defaultConfig defaultConfig33,34
+defaultConfig defaultConfig34,35
+setLogger setLogger40,41
+setLogger setLogger41,42
+makePool makePool46,47
+makePool makePool47,48
+envPool envPool53,54
+envPool envPool54,55
+connStr connStr59,60
+connStr connStr60,61
+
+./src/Interface.hs,180
+module Interface Interface0,1
+class HasDatabaseModel HasDatabaseModel2,3
+class HasDatabaseModel HasDatabaseModel2,3
+  toDbModel toDbModel3,4
+  fromDbModel fromDbModel4,5
+
+./src/Forms.hs,263
+module FormsForms5,6
+data User User17,18
+data User = UserUser17,18
+  { username username18,19
+  , userPassword userPassword19,20
+  , userEmail userEmail20,21
+  , userAbout userAbout21,22
+userToDUser userToDUser26,27
+userToDUser userToDUser27,28
+
+./src/ClientModels.hs,879
+module ClientModelsClientModels4,5
+data UserLink UserLink24,25
+data UserLink = UserLinkUserLink24,25
+  { userHref userHref25,26
+  , user user26,27
+data User User29,30
+data User = UserUser29,30
+  { username username30,31
+  , userPassword userPassword31,32
+  , userEmail userEmail32,33
+  , userAbout userAbout33,34
+  , userDicts userDicts34,35
+data DictionaryLink DictionaryLink42,43
+data DictionaryLink = DictionaryLinkDictionaryLink42,43
+  { dictHref dictHref43,44
+  , dictionary dictionary44,45
+data Dictionary Dictionary47,48
+data Dictionary = DictionaryDictionary47,48
+  { dictLang dictLang48,49
+  , dictEntries dictEntries49,50
+  , dictUser dictUser50,51
+data LoginForm LoginForm58,59
+data LoginForm = LoginFormLoginForm58,59
+  { loginUsername loginUsername59,60
+  , loginPassword loginPassword60,61
+instance instance63,64
+
+./src/Knowledge.hs,178
+data KnowledgeKnowledge13,14
+    = NoneNone14,15
+    | PoorPoor15,16
+    | MediumMedium16,17
+    | GoodGood17,18
+    | ExcelentExcelent18,19
+instance instance22,23
+
+./src/Lib.hs,141
+module LibLib10,11
+startApp startApp24,25
+startApp startApp25,26
+lookupSetting lookupSetting38,39
+lookupSetting lookupSetting39,40
+
+./src/Api.hs,489
+module ApiApi17,18
+import import32,33
+type ServiceAPI ServiceAPI48,49
+type API API55,56
+type API' API'57,58
+api' api'62,63
+api' api'63,64
+type AppM AppM67,68
+readerToExcept readerToExcept73,74
+readerToExcept readerToExcept74,75
+server server78,79
+server server79,80
+readerServer readerServer86,87
+readerServer readerServer87,88
+app app90,91
+app app91,92
+createUser createUser99,100
+createUser createUser100,101
+login login120,121
+login login121,122
+
+./test/Spec.hs,30
+main main0,1
+main main1,2
+
+./Setup.hs,15
+main main1,2
+
+./app/Main.hs,52
+module Main Main0,1
+main main4,5
+main main5,6

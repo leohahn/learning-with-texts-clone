@@ -24,6 +24,7 @@ import GHC.Generics                (Generic)
 import Prelude hiding (Word, id)
 
 import Config
+import qualified Interface as I
 import Language (Language)
 import Knowledge (Knowledge)
 
@@ -57,55 +58,33 @@ DDictionary json
     UniqueDictionary lang userId
 
     deriving         Show
+
+DText json
+    content    Text
+    lang       Language
+    userId     DUserId
+
+    deriving   Show
 |]
 
+-- dictionaryToDDictionary :: Int64 -> Dictionary -> DDictionary
+-- dictionaryToDDictionary userId Dictionary{..} =
+--   DDictionary dictLang (PG.toSqlKey userId)
 
-data Word = Word
-    { wordName      :: Text
-    , wordLang      :: Language
-    , wordKnowledge :: Knowledge
-    } deriving (Show, Generic)
+-- userToDUser :: User -> DUser
+-- userToDUser User{..} =
+--   DUser username userPassword userEmail userAbout
 
-data User = User
-    { username     :: Text
-    , userPassword :: Text
-    , userEmail    :: Text
-    , userAbout    :: Maybe Text
-    } deriving (Show, Generic)
+-- dWordToWord :: DWord -> Word
+-- dWordToWord DWord{..} =
+--   Word dWordName dWordLang dWordKnowledge
 
-data Dictionary = Dictionary
-    { dictLang    :: Language
-    , dictEntries :: [Word]
-    } deriving (Show, Generic)
-
-dictionaryToDDictionary :: Int64 -> Dictionary -> DDictionary
-dictionaryToDDictionary userId Dictionary{..} =
-    DDictionary dictLang (PG.toSqlKey userId)
-
-userToDUser :: User -> DUser
-userToDUser User{..} =
-    DUser username userPassword userEmail userAbout
-
-dWordToWord :: DWord -> Word
-dWordToWord DWord{..} =
-    Word dWordName dWordLang dWordKnowledge
-
-wordToDWord :: Int64 -> Word -> DWord
-wordToDWord id Word{..}=
-    DWord wordName wordLang wordKnowledge (PG.toSqlKey id)
-
--- Derive all the Json instances (Boilerplate)
-instance ToJSON Word
-instance FromJSON Word
-instance ToJSON User
-instance FromJSON User
-instance ToJSON Dictionary
-instance FromJSON Dictionary
----------------------------------------------
+-- wordToDWord :: Int64 -> Word -> DWord
+-- wordToDWord id Word{..}=
+--   DWord wordName wordLang wordKnowledge (PG.toSqlKey id)
 
 doMigrations :: ReaderT SqlBackend IO ()
 doMigrations = PG.runMigration migrateAll
-
 
 runDb query = do
     pool <- asks getPool
