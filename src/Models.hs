@@ -13,18 +13,11 @@
 
 module Models where
 
-import Control.Monad.Reader        (ReaderT, asks, liftIO)
-import Data.Aeson                  (ToJSON, FromJSON)
-import Data.Int                    (Int64)
 import Data.Text
-import Database.Persist.Postgresql as PG
 import Database.Persist.TH         (share, mkPersist, sqlSettings,
                                     mkMigrate, persistLowerCase)
-import GHC.Generics                (Generic)
 import Prelude hiding (Word, id)
 
-import Config
-import qualified Interface as I
 import Language (Language)
 import Knowledge (Knowledge)
 
@@ -59,33 +52,13 @@ DDictionary json
 
     deriving         Show
 
-DText json
-    content    Text
-    lang       Language
-    userId     DUserId
+DDocument json
+    lang           Language
+    title          Text
+    content        Text
+    userId         DUserId
 
-    deriving   Show
+    UniqueDocument title userId
+
+    deriving       Show
 |]
-
--- dictionaryToDDictionary :: Int64 -> Dictionary -> DDictionary
--- dictionaryToDDictionary userId Dictionary{..} =
---   DDictionary dictLang (PG.toSqlKey userId)
-
--- userToDUser :: User -> DUser
--- userToDUser User{..} =
---   DUser username userPassword userEmail userAbout
-
--- dWordToWord :: DWord -> Word
--- dWordToWord DWord{..} =
---   Word dWordName dWordLang dWordKnowledge
-
--- wordToDWord :: Int64 -> Word -> DWord
--- wordToDWord id Word{..}=
---   DWord wordName wordLang wordKnowledge (PG.toSqlKey id)
-
-doMigrations :: ReaderT SqlBackend IO ()
-doMigrations = PG.runMigration migrateAll
-
-runDb query = do
-    pool <- asks getPool
-    liftIO $ PG.runSqlPool query pool

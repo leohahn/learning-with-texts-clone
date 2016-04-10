@@ -19,14 +19,17 @@ library
   other-modules:       Api
                      , ClientModels
                      , Config
+                     , Errors
                      , Forms
                      , Knowledge
                      , Language
                      , Models
   build-depends:       base >= 4.7 && < 5
                      , aeson
+                     , bytestring
                      , containers
                      , either
+                     , entropy
                      , http-api-data
                      , monad-logger
                      , mtl
@@ -36,6 +39,8 @@ library
                      , random
                      , servant
                      , servant-server
+                     , stm
+                     , stm-containers
                      , text
                      , transformers
                      , wai

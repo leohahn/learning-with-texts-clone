@@ -8,19 +8,50 @@ module ClientModels
        , UserLink(..)
        , Dictionary(..)
        , DictionaryLink(..)
+       , Document(..)
+       , DocumentLink(..)
+       , toDDocument
        ) where
 
-import           Control.Monad (mzero)
-import           Data.Aeson    (FromJSON, ToJSON, (.:))
-import qualified Data.Aeson    as Aeson
-import           Data.Map      (Map)
-import           Data.Text     (Text)
-import           GHC.Generics  (Generic)
-import           Prelude       hiding (Word)
+import           Control.Monad               (mzero)
+import           Data.Aeson                  (FromJSON, ToJSON, (.:))
+import qualified Data.Aeson                  as Aeson
+import           Data.Map                    (Map)
+import           Data.Text                   (Text)
+import           Database.Persist.Postgresql (Key)
+import           GHC.Generics                (Generic)
+import           Prelude                     hiding (Word)
+import           Web.HttpApiData             (FromHttpApiData, parseHeader
+                                             ,parseUrlPiece)
 
-import           Knowledge     (Knowledge)
-import           Language      (Language)
+import           Knowledge                   (Knowledge)
+import           Language                    (Language)
+import qualified Models                      as M
 
+
+data DocumentLink = DocumentLink
+  { docHref :: Text
+  , doc     :: Maybe Document
+  } deriving (Generic)
+
+data Document = Document
+  { docLang    :: Language
+  , docTitle   :: Text
+  , docContent :: Text
+  , docUser    :: UserLink
+  } deriving (Generic)
+
+toDDocument :: Key M.DUser -> Document -> M.DDocument
+toDDocument key Document{..} = M.DDocument
+  { M.dDocumentLang = docLang
+  , M.dDocumentTitle = docTitle
+  , M.dDocumentContent = docContent
+  , M.dDocumentUserId = key
+  }
+
+instance FromJSON Document
+instance ToJSON Document
+instance ToJSON DocumentLink
 
 data UserLink = UserLink
   { userHref :: Text

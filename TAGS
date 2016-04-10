@@ -1,9 +1,6 @@
 
-./src/Models.hs,113
+./src/Models.hs,28
 module Models Models13,14
-doMigrations doMigrations85,86
-doMigrations doMigrations86,87
-runDb runDb88,89
 
 ./src/Language.hs,108
 data LanguageLanguage13,14
@@ -11,32 +8,30 @@ data LanguageLanguage13,14
     | GermanGerman15,16
 instance instance19,20
 
-./src/Config.hs,509
-data Config Config20,21
-data Config = ConfigConfig20,21
-    { getPool getPool21,22
-    , getEnv getEnv22,23
-data EnvironmentEnvironment26,27
-    = DevelopmentDevelopment27,28
-    | TestTest28,29
-    | ProductionProduction29,30
-defaultConfig defaultConfig33,34
-defaultConfig defaultConfig34,35
-setLogger setLogger40,41
-setLogger setLogger41,42
-makePool makePool46,47
-makePool makePool47,48
-envPool envPool53,54
-envPool envPool54,55
-connStr connStr59,60
-connStr connStr60,61
-
-./src/Interface.hs,180
-module Interface Interface0,1
-class HasDatabaseModel HasDatabaseModel2,3
-class HasDatabaseModel HasDatabaseModel2,3
-  toDbModel toDbModel3,4
-  fromDbModel fromDbModel4,5
+./src/Config.hs,649
+type State State28,29
+data Config Config30,31
+data Config = ConfigConfig30,31
+    { getPool getPool31,32
+    , getEnv getEnv32,33
+    , getState getState33,34
+data EnvironmentEnvironment36,37
+    = DevelopmentDevelopment37,38
+    | TestTest38,39
+    | ProductionProduction39,40
+doMigrations doMigrations42,43
+doMigrations doMigrations43,44
+runDb runDb49,50
+defaultConfig defaultConfig53,54
+defaultConfig defaultConfig54,55
+setLogger setLogger60,61
+setLogger setLogger61,62
+makePool makePool66,67
+makePool makePool67,68
+envPool envPool72,73
+envPool envPool73,74
+connStr connStr77,78
+connStr connStr78,79
 
 ./src/Forms.hs,263
 module FormsForms5,6
@@ -49,33 +44,45 @@ data User = UserUser17,18
 userToDUser userToDUser26,27
 userToDUser userToDUser27,28
 
-./src/ClientModels.hs,879
+./src/ClientModels.hs,1263
 module ClientModelsClientModels4,5
-data UserLink UserLink24,25
-data UserLink = UserLinkUserLink24,25
-  { userHref userHref25,26
-  , user user26,27
-data User User29,30
-data User = UserUser29,30
-  { username username30,31
-  , userPassword userPassword31,32
-  , userEmail userEmail32,33
-  , userAbout userAbout33,34
-  , userDicts userDicts34,35
-data DictionaryLink DictionaryLink42,43
-data DictionaryLink = DictionaryLinkDictionaryLink42,43
-  { dictHref dictHref43,44
-  , dictionary dictionary44,45
-data Dictionary Dictionary47,48
-data Dictionary = DictionaryDictionary47,48
-  { dictLang dictLang48,49
-  , dictEntries dictEntries49,50
-  , dictUser dictUser50,51
-data LoginForm LoginForm58,59
-data LoginForm = LoginFormLoginForm58,59
-  { loginUsername loginUsername59,60
-  , loginPassword loginPassword60,61
-instance instance63,64
+data DocumentLink DocumentLink31,32
+data DocumentLink = DocumentLinkDocumentLink31,32
+  { docHref docHref32,33
+  , doc doc33,34
+data Document Document36,37
+data Document = DocumentDocument36,37
+  { docLang docLang37,38
+  , docTitle docTitle38,39
+  , docContent docContent39,40
+  , docUser docUser40,41
+toDDocument toDDocument43,44
+toDDocument toDDocument44,45
+data UserLink UserLink55,56
+data UserLink = UserLinkUserLink55,56
+  { userHref userHref56,57
+  , user user57,58
+data User User60,61
+data User = UserUser60,61
+  { username username61,62
+  , userPassword userPassword62,63
+  , userEmail userEmail63,64
+  , userAbout userAbout64,65
+  , userDicts userDicts65,66
+data DictionaryLink DictionaryLink73,74
+data DictionaryLink = DictionaryLinkDictionaryLink73,74
+  { dictHref dictHref74,75
+  , dictionary dictionary75,76
+data Dictionary Dictionary78,79
+data Dictionary = DictionaryDictionary78,79
+  { dictLang dictLang79,80
+  , dictEntries dictEntries80,81
+  , dictUser dictUser81,82
+data LoginForm LoginForm89,90
+data LoginForm = LoginFormLoginForm89,90
+  { loginUsername loginUsername90,91
+  , loginPassword loginPassword91,92
+instance instance94,95
 
 ./src/Knowledge.hs,178
 data KnowledgeKnowledge13,14
@@ -86,34 +93,54 @@ data KnowledgeKnowledge13,14
     | ExcelentExcelent18,19
 instance instance22,23
 
+./src/Errors.hs,436
+module ErrorsErrors2,3
+data BenedictErrorBenedictError14,15
+  = AlreadyLoggedInAlreadyLoggedIn15,16
+  | WrongPasswordWrongPassword16,17
+  | WrongUsernameWrongUsername17,18
+  | InvalidTokenInvalidToken18,19
+  | MissingTokenHeaderMissingTokenHeader19,20
+  | ExistingDocumentExistingDocument20,21
+  | ExistingUserExistingUser21,22
+throwBenedictError throwBenedictError23,24
+throwBenedictError throwBenedictError24,25
+
 ./src/Lib.hs,141
 module LibLib10,11
-startApp startApp24,25
-startApp startApp25,26
-lookupSetting lookupSetting38,39
-lookupSetting lookupSetting39,40
+startApp startApp27,28
+startApp startApp28,29
+lookupSetting lookupSetting46,47
+lookupSetting lookupSetting47,48
 
-./src/Api.hs,489
-module ApiApi17,18
-import import32,33
-type ServiceAPI ServiceAPI48,49
-type API API55,56
-type API' API'57,58
-api' api'62,63
-api' api'63,64
-type AppM AppM67,68
-readerToExcept readerToExcept73,74
-readerToExcept readerToExcept74,75
-server server78,79
-server server79,80
-readerServer readerServer86,87
-readerServer readerServer87,88
-app app90,91
-app app91,92
-createUser createUser99,100
-createUser createUser100,101
-login login120,121
-login login121,122
+./src/Api.hs,758
+module ApiApi20,21
+import import40,41
+type API API59,60
+type API' API'61,62
+type Authentication Authentication63,64
+type ServiceAPI ServiceAPI65,66
+api' api'76,77
+api' api'77,78
+type AppM AppM81,82
+readerToExcept readerToExcept83,84
+readerToExcept readerToExcept84,85
+server server88,89
+server server89,90
+readerServer readerServer93,94
+readerServer readerServer94,95
+app app97,98
+app app98,99
+lookupLoggedUsers lookupLoggedUsers103,104
+lookupLoggedUsers lookupLoggedUsers104,105
+authenticate authenticate118,119
+authenticate authenticate119,120
+addDocument addDocument127,128
+addDocument addDocument128,129
+createUser createUser144,145
+createUser createUser145,146
+login login165,166
+login login166,167
 
 ./test/Spec.hs,30
 main main0,1
