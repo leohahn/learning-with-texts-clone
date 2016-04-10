@@ -44,45 +44,50 @@ data User = UserUser17,18
 userToDUser userToDUser26,27
 userToDUser userToDUser27,28
 
-./src/ClientModels.hs,1263
+./src/ClientModels.hs,1446
 module ClientModelsClientModels4,5
-data DocumentLink DocumentLink31,32
-data DocumentLink = DocumentLinkDocumentLink31,32
-  { docHref docHref32,33
-  , doc doc33,34
-data Document Document36,37
-data Document = DocumentDocument36,37
-  { docLang docLang37,38
-  , docTitle docTitle38,39
-  , docContent docContent39,40
-  , docUser docUser40,41
-toDDocument toDDocument43,44
-toDDocument toDDocument44,45
-data UserLink UserLink55,56
-data UserLink = UserLinkUserLink55,56
-  { userHref userHref56,57
-  , user user57,58
-data User User60,61
-data User = UserUser60,61
-  { username username61,62
-  , userPassword userPassword62,63
-  , userEmail userEmail63,64
-  , userAbout userAbout64,65
-  , userDicts userDicts65,66
-data DictionaryLink DictionaryLink73,74
-data DictionaryLink = DictionaryLinkDictionaryLink73,74
-  { dictHref dictHref74,75
-  , dictionary dictionary75,76
-data Dictionary Dictionary78,79
-data Dictionary = DictionaryDictionary78,79
-  { dictLang dictLang79,80
-  , dictEntries dictEntries80,81
-  , dictUser dictUser81,82
-data LoginForm LoginForm89,90
-data LoginForm = LoginFormLoginForm89,90
-  { loginUsername loginUsername90,91
-  , loginPassword loginPassword91,92
-instance instance94,95
+data DocumentLink DocumentLink36,37
+data DocumentLink = DocumentLinkDocumentLink36,37
+  { docHref docHref37,38
+  , document document38,39
+data Document Document41,42
+data Document = DocumentDocument41,42
+  { docLang docLang42,43
+  , docTitle docTitle43,44
+  , docContent docContent44,45
+  , docUser docUser45,46
+toDocument toDocument48,49
+toDocument toDocument49,50
+toDDocument toDDocument56,57
+toDDocument toDDocument57,58
+data UserLink UserLink69,70
+data UserLink = UserLinkUserLink69,70
+  { userHref userHref70,71
+  , user user71,72
+data User User74,75
+data User = UserUser74,75
+  { username username75,76
+  , userPassword userPassword76,77
+  , userEmail userEmail77,78
+  , userAbout userAbout78,79
+  , userDicts userDicts79,80
+  , userDocs userDocs80,81
+mkUserLink mkUserLink83,84
+mkUserLink mkUserLink84,85
+data DictionaryLink DictionaryLink101,102
+data DictionaryLink = DictionaryLinkDictionaryLink101,102
+  { dictHref dictHref102,103
+  , dictionary dictionary103,104
+data Dictionary Dictionary106,107
+data Dictionary = DictionaryDictionary106,107
+  { dictLang dictLang107,108
+  , dictEntries dictEntries108,109
+  , dictUser dictUser109,110
+data LoginForm LoginForm117,118
+data LoginForm = LoginFormLoginForm117,118
+  { loginUsername loginUsername118,119
+  , loginPassword loginPassword119,120
+instance instance122,123
 
 ./src/Knowledge.hs,178
 data KnowledgeKnowledge13,14
@@ -93,7 +98,7 @@ data KnowledgeKnowledge13,14
     | ExcelentExcelent18,19
 instance instance22,23
 
-./src/Errors.hs,436
+./src/Errors.hs,486
 module ErrorsErrors2,3
 data BenedictErrorBenedictError14,15
   = AlreadyLoggedInAlreadyLoggedIn15,16
@@ -102,9 +107,10 @@ data BenedictErrorBenedictError14,15
   | InvalidTokenInvalidToken18,19
   | MissingTokenHeaderMissingTokenHeader19,20
   | ExistingDocumentExistingDocument20,21
-  | ExistingUserExistingUser21,22
-throwBenedictError throwBenedictError23,24
+  | NonExistingDocumentNonExistingDocument21,22
+  | ExistingUserExistingUser22,23
 throwBenedictError throwBenedictError24,25
+throwBenedictError throwBenedictError25,26
 
 ./src/Lib.hs,141
 module LibLib10,11
@@ -113,34 +119,36 @@ startApp startApp28,29
 lookupSetting lookupSetting46,47
 lookupSetting lookupSetting47,48
 
-./src/Api.hs,758
+./src/Api.hs,841
 module ApiApi20,21
 import import40,41
 type API API59,60
 type API' API'61,62
 type Authentication Authentication63,64
 type ServiceAPI ServiceAPI65,66
-api' api'76,77
-api' api'77,78
-type AppM AppM81,82
-readerToExcept readerToExcept83,84
-readerToExcept readerToExcept84,85
-server server88,89
-server server89,90
-readerServer readerServer93,94
-readerServer readerServer94,95
-app app97,98
-app app98,99
-lookupLoggedUsers lookupLoggedUsers103,104
-lookupLoggedUsers lookupLoggedUsers104,105
-authenticate authenticate118,119
-authenticate authenticate119,120
-addDocument addDocument127,128
-addDocument addDocument128,129
-createUser createUser144,145
-createUser createUser145,146
-login login165,166
-login login166,167
+api' api'80,81
+api' api'81,82
+type AppM AppM85,86
+readerToExcept readerToExcept87,88
+readerToExcept readerToExcept88,89
+server server92,93
+server server93,94
+readerServer readerServer98,99
+readerServer readerServer99,100
+app app102,103
+app app103,104
+lookupLoggedUsers lookupLoggedUsers108,109
+lookupLoggedUsers lookupLoggedUsers109,110
+authenticate authenticate123,124
+authenticate authenticate124,125
+getDocument getDocument132,133
+getDocument getDocument133,134
+createDocument createDocument152,153
+createDocument createDocument153,154
+createUser createUser169,170
+createUser createUser170,171
+login login191,192
+login login192,193
 
 ./test/Spec.hs,30
 main main0,1

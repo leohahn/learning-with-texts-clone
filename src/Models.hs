@@ -52,7 +52,7 @@ DDictionary json
 
     deriving         Show
 
-DDocument json
+DDocument
     lang           Language
     title          Text
     content        Text

@@ -74,6 +74,10 @@ type ServiceAPI =
                    :> ReqBody '[JSON] CM.Document
                    :> Post    '[JSON] CM.DocumentLink
 
+  :<|> "documents" :> Authentication
+                   :> Capture "doc-id" Int64
+                   :> Get '[JSON] CM.DocumentLink
+
 api' :: Proxy API'
 api' = Proxy
 
@@ -89,7 +93,8 @@ readerToExcept cfg =
 server :: ServerT API AppM
 server = login
     :<|> createUser
-    :<|> addDocument
+    :<|> createDocument
+    :<|> getDocument
 
 readerServer :: Config -> Server API'
 readerServer cfg = enter (readerToExcept cfg) server
@@ -125,8 +130,28 @@ authenticate maybeToken =
     Just key ->
       lookupLoggedUsers key
 
-addDocument :: Maybe Int -> CM.Document -> AppM CM.DocumentLink
-addDocument token doc =
+getDocument :: Maybe Int -> Int64 -> AppM CM.DocumentLink
+getDocument token docId =
+  do (PG.Entity userId M.DUser{..}) <- authenticate token
+     maybeId <- Conf.runDb $ PG.get (PG.toSqlKey docId :: M.DDocumentId)
+     case maybeId of
+       Nothing ->
+         throwBenedictError NonExistingDocument
+
+       Just doc ->
+         let usrLink = CM.UserLink
+               { CM.userHref = "api/users/"
+                            <> (Text.pack . show . PG.fromSqlKey) userId
+               , CM.user = Nothing
+               }
+         in return CM.DocumentLink
+             { CM.docHref = "api/documents/"
+                         <> (Text.pack . show) docId
+             , CM.document = Just $ CM.toDocument usrLink doc
+             }
+
+createDocument :: Maybe Int -> CM.Document -> AppM CM.DocumentLink
+createDocument token doc =
   do (PG.Entity userId M.DUser{..}) <- authenticate token
      maybeId <- Conf.runDb $ PG.insertUnique (CM.toDDocument userId doc)
      case maybeId of
@@ -137,7 +162,7 @@ addDocument token doc =
          return CM.DocumentLink
            { CM.docHref = "api/documents/"
                        <> (Text.pack . show . PG.fromSqlKey) docId
-           , CM.doc = Just doc
+           , CM.document = Just doc
            }
 
 -- | Creates a user, given a User codified in JSON. Returns
@@ -155,6 +180,7 @@ createUser formUser@FM.User{..} =
                , CM.userPassword = userPassword
                , CM.userEmail = userEmail
                , CM.userAbout = userAbout
+               , CM.userDocs  = []
                , CM.userDicts = []
                }
          in return CM.UserLink
@@ -172,22 +198,32 @@ login CM.LoginForm{..} =
        Nothing ->
          throwBenedictError WrongUsername
 
-       Just userEntity@(PG.Entity userId user) ->
-         let
-           userLink = CM.UserLink
-             { CM.userHref = "api/users/"
-                          <> (pack . show . PG.fromSqlKey) userId
-             , CM.user = Nothing
-             }
-         in
-           if loginPassword == M.dUserPassword user
-              then do
-                Config{ getState = stateVar } <- ask
-                liftIO $ addEntity rndInt userEntity stateVar
-                return $ addHeader rndInt userLink
+       Just userEntity@(PG.Entity userId dUser) ->
+         do userDicts <- Conf.runDb $ PG.selectList [M.DDictionaryUserId ==. userId] []
+            userDocs  <- Conf.runDb $ PG.selectList [M.DDocumentUserId ==. userId] []
+            let userDictLinks = fmap toDictLink userDicts
+                userDocLinks  = fmap toDocLink userDocs
+                userLink      = CM.mkUserLink userId dUser userDictLinks userDocLinks
+            if loginPassword == M.dUserPassword dUser
+               then do
+                 Config{ getState = stateVar } <- ask
+                 liftIO $ addEntity rndInt userEntity stateVar
+                 return $ addHeader rndInt userLink
 
-              else throwBenedictError WrongPassword
+               else throwBenedictError WrongPassword
   where
+    toDictLink :: PG.Entity M.DDictionary -> CM.DictionaryLink
+    toDictLink entity =
+      let idText = (Text.pack . show . PG.fromSqlKey . \(PG.Entity i _) -> i) entity
+          href = "api/documents/" <> idText
+      in CM.DictionaryLink { CM.dictHref = href, CM.dictionary = Nothing }
+
+    toDocLink :: PG.Entity M.DDocument -> CM.DocumentLink
+    toDocLink entity =
+      let idText = (Text.pack . show . PG.fromSqlKey . \(PG.Entity i _) -> i) entity
+          href = "api/documents/" <> idText
+      in CM.DocumentLink { CM.docHref = href, CM.document = Nothing }
+
     addEntity :: Int
               -> PG.Entity M.DUser
               -> TVar Conf.State
