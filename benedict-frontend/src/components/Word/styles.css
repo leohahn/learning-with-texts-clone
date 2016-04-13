@@ -1,0 +1,20 @@
+.none {
+  background: white;
+}
+.poor {
+  background: #D75C07;
+}
+.medium {
+  background: #E4823C;
+}
+.good {
+  background: #FFB837;
+}
+.excelent {
+  background: #FFCF68;
+}
+
+.none, .poor, .medium,
+.good, .excelent {
+  padding: 2px;
+}

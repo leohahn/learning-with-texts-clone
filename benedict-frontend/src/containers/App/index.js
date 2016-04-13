@@ -1,11 +1,4 @@
-import React, { Component } from 'react';
-
-/* global styles for app */
-import './styles/app.scss';
-
-/* application components */
-import { Header } from 'components/Header';
-import { Footer } from 'components/Footer';
+import React, { Component } from 'react'
 
 export class App extends Component {
   static propTypes = {
@@ -15,10 +8,11 @@ export class App extends Component {
   render() {
     return (
       <section>
-        <Header />
-        {this.props.children}
-        <Footer />
+        <h1>This is App</h1>
+        <div>
+          {this.props.children}
+        </div>
       </section>
-    );
+    )
   }
 }

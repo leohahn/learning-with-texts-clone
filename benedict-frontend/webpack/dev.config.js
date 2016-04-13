@@ -14,8 +14,11 @@ module.exports = {
 
   module: {
     loaders: [{
-      test: /\.scss$/,
-      loader: 'style!css?localIdentName=[path][name]--[local]!postcss-loader!sass',
+      test: /\.css$/,
+      loaders: [
+        'style?sourceMap',
+        'css?modules&importLoaders=1&localIdentName=[path]___[name]___[local]___[hash:base64:5]'
+      ],
     }],
   },
 
