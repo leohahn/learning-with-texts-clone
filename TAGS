@@ -33,6 +33,26 @@ envPool envPool73,74
 connStr connStr77,78
 connStr connStr78,79
 
+./src/Controllers.hs,608
+module ControllersControllers7,8
+import import24,25
+getDictionary getDictionary38,39
+getDictionary getDictionary39,40
+createDictionary createDictionary62,63
+createDictionary createDictionary63,64
+getDocument getDocument77,78
+getDocument getDocument78,79
+createDocument createDocument97,98
+createDocument createDocument98,99
+createUser createUser114,115
+createUser createUser115,116
+login login136,137
+login login137,138
+lookupLoggedUsers lookupLoggedUsers180,181
+lookupLoggedUsers lookupLoggedUsers181,182
+authenticate authenticate195,196
+authenticate authenticate196,197
+
 ./src/Forms.hs,263
 module FormsForms5,6
 data User User17,18
@@ -44,50 +64,68 @@ data User = UserUser17,18
 userToDUser userToDUser26,27
 userToDUser userToDUser27,28
 
-./src/ClientModels.hs,1446
+./src/ClientModels.hs,1922
 module ClientModelsClientModels4,5
-data DocumentLink DocumentLink36,37
-data DocumentLink = DocumentLinkDocumentLink36,37
-  { docHref docHref37,38
-  , document document38,39
-data Document Document41,42
-data Document = DocumentDocument41,42
-  { docLang docLang42,43
-  , docTitle docTitle43,44
-  , docContent docContent44,45
-  , docUser docUser45,46
-toDocument toDocument48,49
-toDocument toDocument49,50
-toDDocument toDDocument56,57
-toDDocument toDDocument57,58
-data UserLink UserLink69,70
-data UserLink = UserLinkUserLink69,70
-  { userHref userHref70,71
-  , user user71,72
-data User User74,75
-data User = UserUser74,75
-  { username username75,76
-  , userPassword userPassword76,77
-  , userEmail userEmail77,78
-  , userAbout userAbout78,79
-  , userDicts userDicts79,80
-  , userDocs userDocs80,81
-mkUserLink mkUserLink83,84
-mkUserLink mkUserLink84,85
-data DictionaryLink DictionaryLink101,102
-data DictionaryLink = DictionaryLinkDictionaryLink101,102
-  { dictHref dictHref102,103
-  , dictionary dictionary103,104
-data Dictionary Dictionary106,107
-data Dictionary = DictionaryDictionary106,107
-  { dictLang dictLang107,108
-  , dictEntries dictEntries108,109
-  , dictUser dictUser109,110
-data LoginForm LoginForm117,118
-data LoginForm = LoginFormLoginForm117,118
-  { loginUsername loginUsername118,119
-  , loginPassword loginPassword119,120
-instance instance122,123
+import import22,23
+data DocumentLink DocumentLink42,43
+data DocumentLink = DocumentLinkDocumentLink42,43
+  { docHref docHref43,44
+  , document document44,45
+data Document Document47,48
+data Document = DocumentDocument47,48
+  { docLang docLang48,49
+  , docTitle docTitle49,50
+  , docContent docContent50,51
+  , docUser docUser51,52
+instance instance54,55
+toDocument toDocument82,83
+toDocument toDocument83,84
+toDDocument toDDocument90,91
+toDDocument toDDocument91,92
+data UserLink UserLink101,102
+data UserLink = UserLinkUserLink101,102
+  { userHref userHref102,103
+  , user user103,104
+data User User106,107
+data User = UserUser106,107
+  { username username107,108
+  , userPassword userPassword108,109
+  , userEmail userEmail109,110
+  , userAbout userAbout110,111
+  , userDicts userDicts111,112
+  , userDocs userDocs112,113
+mkUserLink mkUserLink147,148
+mkUserLink mkUserLink148,149
+data WordLink WordLink163,164
+data WordLink = WordLinkWordLink163,164
+  { wordHref wordHref164,165
+  , word word165,166
+data Word Word168,169
+data Word = WordWord168,169
+  { wordName wordName169,170
+  , wordLang wordLang170,171
+  , wordKnowledge wordKnowledge171,172
+data DictionaryLink DictionaryLink202,203
+data DictionaryLink = DictionaryLinkDictionaryLink202,203
+  { dictHref dictHref203,204
+  , dictionary dictionary204,205
+data Dictionary Dictionary207,208
+data Dictionary = DictionaryDictionary207,208
+  { dictLang dictLang208,209
+  , dictEntries dictEntries209,210
+  , dictUser dictUser210,211
+toDDictionary toDDictionary239,240
+toDDictionary toDDictionary240,241
+toDictionary toDictionary245,246
+toDictionary toDictionary246,247
+data LoginForm LoginForm255,256
+data LoginForm = LoginFormLoginForm255,256
+  { loginUsername loginUsername256,257
+  , loginPassword loginPassword257,258
+
+./src/Types.hs,45
+module TypesTypes0,1
+type AppM AppM11,12
 
 ./src/Knowledge.hs,178
 data KnowledgeKnowledge13,14
@@ -98,7 +136,7 @@ data KnowledgeKnowledge13,14
     | ExcelentExcelent18,19
 instance instance22,23
 
-./src/Errors.hs,486
+./src/Errors.hs,588
 module ErrorsErrors2,3
 data BenedictErrorBenedictError14,15
   = AlreadyLoggedInAlreadyLoggedIn15,16
@@ -109,8 +147,10 @@ data BenedictErrorBenedictError14,15
   | ExistingDocumentExistingDocument20,21
   | NonExistingDocumentNonExistingDocument21,22
   | ExistingUserExistingUser22,23
-throwBenedictError throwBenedictError24,25
-throwBenedictError throwBenedictError25,26
+  | ExistingDictionaryExistingDictionary23,24
+  | NonExistingDictionaryNonExistingDictionary24,25
+throwBenedictError throwBenedictError26,27
+throwBenedictError throwBenedictError27,28
 
 ./src/Lib.hs,141
 module LibLib10,11
@@ -119,36 +159,23 @@ startApp startApp28,29
 lookupSetting lookupSetting46,47
 lookupSetting lookupSetting47,48
 
-./src/Api.hs,841
-module ApiApi20,21
-import import40,41
-type API API59,60
-type API' API'61,62
-type Authentication Authentication63,64
-type ServiceAPI ServiceAPI65,66
-api' api'80,81
-api' api'81,82
-type AppM AppM85,86
-readerToExcept readerToExcept87,88
-readerToExcept readerToExcept88,89
-server server92,93
-server server93,94
-readerServer readerServer98,99
-readerServer readerServer99,100
-app app102,103
-app app103,104
-lookupLoggedUsers lookupLoggedUsers108,109
-lookupLoggedUsers lookupLoggedUsers109,110
-authenticate authenticate123,124
-authenticate authenticate124,125
-getDocument getDocument132,133
-getDocument getDocument133,134
-createDocument createDocument152,153
-createDocument createDocument153,154
-createUser createUser169,170
-createUser createUser170,171
-login login191,192
-login login192,193
+./src/Api.hs,424
+module ApiApi19,20
+type API API38,39
+type API' API'42,43
+type ServiceAPI ServiceAPI44,45
+type Authentication Authentication53,54
+type ProtectedAPI ProtectedAPI56,57
+api' api'75,76
+api' api'76,77
+readerToExcept readerToExcept80,81
+readerToExcept readerToExcept81,82
+server server85,86
+server server86,87
+readerServer readerServer93,94
+readerServer readerServer94,95
+app app98,99
+app app99,100
 
 ./test/Spec.hs,30
 main main0,1

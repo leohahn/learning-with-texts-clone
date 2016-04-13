@@ -19,11 +19,13 @@ library
   other-modules:       Api
                      , ClientModels
                      , Config
+                     , Controllers
                      , Errors
                      , Forms
                      , Knowledge
                      , Language
                      , Models
+                     , Types
   build-depends:       base >= 4.7 && < 5
                      , aeson
                      , bytestring
