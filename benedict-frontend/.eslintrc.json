@@ -1,6 +1,6 @@
 {
   "parser": "babel-eslint",
-  "extends": "eslint-config-standard",
+  "extends": "standard",
   "env": {
     "browser": true,
     "node": true,
@@ -18,7 +18,7 @@
     "padded-blocks": 0,
     "no-console": 0,
     "id-length": 0,
-    "no-unused-expressions": 0,
+    "no-unused-expressions": 0
   },
   "plugins": [
     "react"

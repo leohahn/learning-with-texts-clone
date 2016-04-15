@@ -1,3 +1,6 @@
+.unknown {
+  background: #EE5353;
+}
 .none {
   background: white;
 }
@@ -14,7 +17,6 @@
   background: #FFCF68;
 }
 
-.none, .poor, .medium,
-.good, .excelent {
+.unknown, .none, .poor, .medium, .good, .excelent {
   padding: 2px;
 }

@@ -1,21 +1,30 @@
-import React, { Component, PropTypes } from 'react'
+import React, { PropTypes } from 'react'
 
 import { Knowledge } from 'types'
 import styles from './styles.css'
 
 const colors = {
-  None: styles.none,
-  Poor: styles.poor,
-  Medium: styles.medium,
-  Good: styles.good,
-  Excelent: styles.excelent
+  [Knowledge.Unknown]: styles.unknown,
+  [Knowledge.None]: styles.none,
+  [Knowledge.Poor]: styles.poor,
+  [Knowledge.Medium]: styles.medium,
+  [Knowledge.Good]: styles.good,
+  [Knowledge.Excelent]: styles.excelent
 }
 
-export const Word = ({ children, knowledge }) =>
-  <span className={ colors[knowledge] }>
-    { children }
+// ----------------------------------------------
+// View
+// ----------------------------------------------
+export const Word = ({ knowledge, onClick, name }) =>
+  <span className={ colors[knowledge] } onClick={ () => onClick(name) }>
+    { name }
   </span>
 
+// ----------------------------------------------
+// Public Interface
+// ----------------------------------------------
 Word.propTypes = {
-  knowledge: PropTypes.string.isRequired
+  name: PropTypes.string.isRequired,
+  knowledge: PropTypes.string.isRequired,
+  onClick: PropTypes.func.isRequired
 }
