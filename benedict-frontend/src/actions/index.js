@@ -1,8 +1,8 @@
-import { MENU_SELECT } from 'actions/constants'
+import { Store } from 'actions/constants'
 
 export function menuSelect (selection) {
   return {
-    type: MENU_SELECT,
+    type: Store.MENU_SELECT,
     selection
   }
 }

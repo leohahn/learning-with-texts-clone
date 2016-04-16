@@ -1,14 +1,14 @@
 import R from 'ramda'
-import { MENU_SELECT } from 'actions/constants'
+import { Store } from 'actions/constants'
 
 const initialState = {
-  selected: 'PROFILE',
+  selected: 'WORKSPACE',
   username: 'lhahn'
 }
 
 export function menu (state = initialState, action) {
   switch (action.type) {
-    case MENU_SELECT:
+    case Store.MENU_SELECT:
       return R.assoc('selected', action.selection, state)
 
     default:

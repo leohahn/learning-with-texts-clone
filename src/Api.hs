@@ -22,17 +22,18 @@ module Api
     , AppM
     ) where
 
-import           Control.Monad.Reader       (runReaderT)
-import           Control.Monad.Trans.Except (ExceptT)
-import           Data.Int                   (Int64)
-import           Network.Wai                (Application)
+import           Control.Monad.Reader        (runReaderT)
+import           Control.Monad.Trans.Except  (ExceptT)
+import           Data.Int                    (Int64)
+import           Network.Wai                 (Application, Request)
+import           Network.Wai.Middleware.Cors (CorsResourcePolicy (..), cors)
 import           Servant
 
-import qualified ClientModels               as CM
-import           Config                     (Config (..))
+import qualified ClientModels                as CM
+import           Config                      (Config (..))
 import qualified Controllers
-import qualified Forms                      as FM
-import           Types                      (AppM)
+import qualified Forms                       as FM
+import           Types                       (AppM)
 
 
 -- | Definition of all the endpoints of the application.
@@ -97,4 +98,16 @@ readerServer cfg = enter (readerToExcept cfg) server
 
 -- | The Wai application exported to be run by the server.
 app :: Config -> Application
-app cfg = serve api' (readerServer cfg)
+app cfg = cors policy $ serve api' (readerServer cfg)
+  where
+    policy :: Request -> Maybe CorsResourcePolicy
+    policy _ = Just CorsResourcePolicy
+      { corsOrigins        = Nothing
+      , corsMethods        = ["GET", "POST", "DELETE"]
+      , corsRequestHeaders = ["content-type", "cookie-auth"]
+      , corsExposedHeaders = Just ["cookie-auth"]
+      , corsMaxAge         = Nothing
+      , corsVaryOrigin     = False
+      , corsRequireOrigin  = False
+      , corsIgnoreFailures = False
+      }

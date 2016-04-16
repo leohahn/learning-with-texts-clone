@@ -159,23 +159,23 @@ startApp startApp28,29
 lookupSetting lookupSetting46,47
 lookupSetting lookupSetting47,48
 
-./src/Api.hs,424
+./src/Api.hs,426
 module ApiApi19,20
-type API API38,39
-type API' API'42,43
-type ServiceAPI ServiceAPI44,45
-type Authentication Authentication53,54
-type ProtectedAPI ProtectedAPI56,57
-api' api'75,76
+type API API39,40
+type API' API'43,44
+type ServiceAPI ServiceAPI45,46
+type Authentication Authentication54,55
+type ProtectedAPI ProtectedAPI57,58
 api' api'76,77
-readerToExcept readerToExcept80,81
+api' api'77,78
 readerToExcept readerToExcept81,82
-server server85,86
+readerToExcept readerToExcept82,83
 server server86,87
-readerServer readerServer93,94
+server server87,88
 readerServer readerServer94,95
-app app98,99
+readerServer readerServer95,96
 app app99,100
+app app100,101
 
 ./test/Spec.hs,30
 main main0,1

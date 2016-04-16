@@ -1,7 +1,7 @@
 {
-  "name": "redux-easy-boilerplate",
-  "version": "2.1.0",
-  "description": "Start your project easy and fast with modern tools",
+  "name": "benedict",
+  "version": "0.1.0",
+  "description": "",
   "scripts": {
     "clean": "rimraf dist",
     "build": "webpack --progress --verbose --colors --display-error-details --config webpack/common.config.js",
@@ -11,31 +11,11 @@
     "test": "karma start"
   },
   "repository": {
-    "type": "git",
-    "url": "https://github.com/anorudes/redux-easy-boilerplate.git"
+    "type": "git"
   },
-  "homepage": "http://anorudes.github.io/redux-easy-boilerplate/",
-  "bugs": "https://github.com/anorudes/redux-easy-boilerplate/issues",
-  "keywords": [
-    "react",
-    "reactjs",
-    "babel6",
-    "boilerplate",
-    "redux",
-    "hot",
-    "reload",
-    "hmr",
-    "live",
-    "edit",
-    "webpack"
-  ],
   "license": "MIT",
   "authors": [
-    "Max Anoru (https://github.com/anorudes)",
-    "Andrey Keske (https://github.com/keske)"
-  ],
-  "contributors": [
-    "Ollipekka Jalonen (https://github.com/inertum)"
+    "Leonardo Hahn (https://github.com/leohahn)"
   ],
   "devDependencies": {
     "autoprefixer": "6.3.1",
@@ -101,6 +81,7 @@
     "react-redux": "^4.0.6",
     "react-router": "^2.0.0-rc5",
     "redux": "^3.1.4",
+    "redux-saga": "^0.9.5",
     "uikit": "^2.26.2"
   }
 }
