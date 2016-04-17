@@ -6,7 +6,7 @@ import { Word } from 'components/Word'
 import { Knowledge } from 'types'
 
 @connect() // Inject only dispatch
-export class Profile extends Component {
+export default class Profile extends Component {
   render () {
     return (
       <div>

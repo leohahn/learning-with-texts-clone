@@ -4,15 +4,34 @@ import { connect } from 'react-redux'
 import { menuSelect } from 'actions'
 import Navbar from 'components/Navbar'
 
-const mapStateToProps = ({ menu }) => {
+const loggedItems = [
+  {
+    name: 'Workspace',
+    selection: 'WORKSPACE',
+    to: '/'
+  },
+  {
+    name: 'Profile',
+    selection: 'PROFILE',
+    to: '/profile'
+  }
+]
+
+const unloggedItems = [
+]
+
+const mapStateToProps = ({ menu, user }) => {
+  const loggedIn = user.token !== null
+
   return {
-    active: menu.selected
+    selected: menu.selected,
+    items: loggedIn ? loggedItems : unloggedItems
   }
 }
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    onSelect: (itemName) => dispatch(menuSelect(itemName))
+    onClick: (itemName) => dispatch(menuSelect(itemName))
   }
 }
 
@@ -20,7 +39,7 @@ const mapDispatchToProps = (dispatch) => {
 export default class TopMenu extends Component {
   render () {
     return (
-      <Navbar {...this.props} />
+      <Navbar { ...this.props } />
     )
   }
 }

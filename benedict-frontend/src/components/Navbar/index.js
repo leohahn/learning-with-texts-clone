@@ -1,24 +1,37 @@
 import React, { PropTypes } from 'react'
 import { Link } from 'react-router'
 
-const Navbar = ({ onSelect, active }) =>
-  <nav className='uk-navbar'>
-    <Link to='/' className='uk-navbar-brand'>Benedict</Link>
-    <ul className='uk-navbar-nav'>
-      <li className={active === 'WORKSPACE' ? 'uk-active' : ''}
-          onClick={() => onSelect('WORKSPACE')}>
-        <Link to='/'>Workspace</Link>
-      </li>
-      <li className={active === 'PROFILE' ? 'uk-active' : ''}
-          onClick={() => onSelect('PROFILE')}>
-        <Link to='/profile'>Profile</Link>
-      </li>
-    </ul>
-  </nav>
+const NavbarItem = ({ children, active, to }) =>
+  <li className={active ? 'uk-active' : ''}>
+    <Link to={to}> {children} </Link>
+  </li>
+
+const Navbar = ({ onClick, selected, items }) => {
+  return (
+    <nav className='uk-navbar'>
+      <Link to='/' className='uk-navbar-brand'>
+        Benedict
+      </Link>
+      <ul className='uk-navbar-nav'>
+        {items.map((item) =>
+          <NavbarItem active={item.selection === selected}
+                      to={item.to} onClick={onClick}>
+            {item.name}
+          </NavbarItem>
+        )}
+      </ul>
+    </nav>
+  )
+}
 
 Navbar.propTypes = {
-  onSelect: PropTypes.func.isRequired,
-  active: PropTypes.string.isRequired
+  onClick: PropTypes.func.isRequired,
+  selected: PropTypes.string.isRequired,
+  items: PropTypes.arrayOf(PropTypes.shape({
+    name: PropTypes.string.isRequired,
+    selection: PropTypes.string.isRequired,
+    to: PropTypes.string.isRequired
+  }).isRequired).isRequired
 }
 
 export default Navbar

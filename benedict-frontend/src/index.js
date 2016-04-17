@@ -8,7 +8,7 @@ import configureStore from './store/configureStore'
 import routes from './routes'
 
 const history = useRouterHistory(createHashHistory)({ queryKey: false })
-const store = configureStore()
+export const store = configureStore()
 
 ReactDOM.render(
   <Provider store={store}>
