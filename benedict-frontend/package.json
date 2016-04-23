@@ -75,13 +75,13 @@
     "webpack-merge": "^0.7.3"
   },
   "dependencies": {
-    "jquery": "^2.2.0",
+    "bootstrap": "^4.0.0-alpha.2",
+    "jquery": "^2.2.3",
     "ramda": "^0.21.0",
     "react": "^0.14.6",
     "react-redux": "^4.0.6",
     "react-router": "^2.0.0-rc5",
     "redux": "^3.1.4",
-    "redux-saga": "^0.9.5",
-    "uikit": "^2.26.2"
+    "redux-saga": "^0.9.5"
   }
 }

@@ -1,6 +1,7 @@
 import React, { Component, PropTypes } from 'react'
 
 import TopMenu from 'containers/TopMenu'
+import NotificationSystem from 'containers/NotificationSystem'
 
 export default class App extends Component {
   static propTypes = {
@@ -8,10 +9,12 @@ export default class App extends Component {
   }
 
   render () {
+    const maxHeight = { height: '100%' }
     return (
-      <div>
+      <div style={maxHeight}>
+        <NotificationSystem />
         <TopMenu />
-        <div>
+        <div style={maxHeight}>
           {this.props.children}
         </div>
       </div>

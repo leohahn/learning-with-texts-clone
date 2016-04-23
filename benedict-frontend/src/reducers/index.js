@@ -1,11 +1,13 @@
 import { combineReducers } from 'redux'
 
 import { menu } from 'reducers/menu'
-import { user } from 'reducers/user'
+import { account } from 'reducers/account'
+import { notifications } from 'reducers/notifications'
 
 const rootReducer = combineReducers({
   menu,
-  user
+  account,
+  notifications
 })
 
 export default rootReducer

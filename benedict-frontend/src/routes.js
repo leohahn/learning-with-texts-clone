@@ -1,23 +1,22 @@
 import React from 'react'
 import R from 'ramda'
-import { Route, IndexRoute } from 'react-router'
+import { Route, IndexRedirect } from 'react-router'
 
 /* containers */
 import App from 'containers/App'
 import Workspace from 'containers/Workspace'
 import Profile from 'containers/Profile'
 import Login from 'containers/Login'
+import NotFound from 'components/NotFound'
 
 import { store } from 'index'
 
 function authCheck (nextState, replace) {
-  // If the token field has a value, it means that the user is already
-  // logged in.
-  const loggedIn = R.path(['user', 'token'], store.getState())
+  const loggedIn = R.path(['account', 'status', 'loggedIn'], store.getState())
   const goingToLogin = nextState.location.pathname === '/login'
 
   if (goingToLogin && loggedIn) {
-    replace('/')
+    replace('/workspace')
   } else if (!goingToLogin && !loggedIn) {
     replace('/login')
   }
@@ -25,9 +24,10 @@ function authCheck (nextState, replace) {
 
 export default (
   <Route path='/' component={App}>
-    <IndexRoute component={Workspace} onEnter={authCheck} />
+    <IndexRedirect to='login' />
+    <Route path='workspace' component={Workspace} onEnter={authCheck} />
     <Route path='profile' component={Profile} onEnter={authCheck} />
     <Route path='login' component={Login} onEnter={authCheck} />
-    <Route status={404} path='*' component={Workspace} />
+    <Route status={404} path='*' component={NotFound} />
   </Route>
 )

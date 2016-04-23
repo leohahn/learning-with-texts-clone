@@ -1,20 +1,35 @@
+<!DOCTYPE html>
 <html>
 
 <head>
   <meta charset="utf-8">
-  <title>Benedict</title>
   <meta name="description" content="">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="stylesheet" type="text/css" href="node_modules/uikit/dist/css/uikit.min.css"/>
+
+  <style type="text/css">
+    html,
+    body,
+    #root {
+      height: 100%;
+    }
+  </style>
+
+  <link rel="stylesheet" type="text/css" href="dist/uikit/css/uikit.css"/>
+  <link rel="stylesheet" type="text/css" href="dist/uikit/css/components/notify.css"/>
   <link rel="stylesheet" type="text/css" href="dist/bundle.css"/>
   <link rel="shortcut icon" type="image/png" href="./src/images/favicon.png"/>
+
+  <title>Benedict</title>
+
 </head>
 
 <body>
   <div id="root"></div>
 </body>
 
+<script src="node_modules/jquery/dist/jquery.js"></script>
+<script src="dist/uikit/js/uikit.js"></script>
+<script src="dist/uikit/js/components/notify.js"></script>
 <script src="dist/bundle.js"></script>
-<script async defer id="github-bjs" src="https://buttons.github.io/buttons.js"></script>
 
 </html>

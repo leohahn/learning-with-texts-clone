@@ -1,8 +1,8 @@
 import React, { PropTypes } from 'react'
 import { Link } from 'react-router'
 
-const NavbarItem = ({ children, active, to }) =>
-  <li className={active ? 'uk-active' : ''}>
+const NavbarItem = ({ children, active, to, onClick }) =>
+  <li className={active ? 'uk-active' : ''} onClick={onClick}>
     <Link to={to}> {children} </Link>
   </li>
 
@@ -15,7 +15,7 @@ const Navbar = ({ onClick, selected, items }) => {
       <ul className='uk-navbar-nav'>
         {items.map((item) =>
           <NavbarItem active={item.selection === selected}
-                      to={item.to} onClick={onClick}>
+                      to={item.to} onClick={() => onClick(item.selection)}>
             {item.name}
           </NavbarItem>
         )}

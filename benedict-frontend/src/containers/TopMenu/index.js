@@ -8,7 +8,7 @@ const loggedItems = [
   {
     name: 'Workspace',
     selection: 'WORKSPACE',
-    to: '/'
+    to: '/workspace'
   },
   {
     name: 'Profile',
@@ -20,8 +20,8 @@ const loggedItems = [
 const unloggedItems = [
 ]
 
-const mapStateToProps = ({ menu, user }) => {
-  const loggedIn = user.token !== null
+const mapStateToProps = ({ menu, account }) => {
+  const loggedIn = account.status.loggedIn
 
   return {
     selected: menu.selected,
@@ -31,7 +31,7 @@ const mapStateToProps = ({ menu, user }) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    onClick: (itemName) => dispatch(menuSelect(itemName))
+    onClick: (selection) => dispatch(menuSelect(selection))
   }
 }
 
