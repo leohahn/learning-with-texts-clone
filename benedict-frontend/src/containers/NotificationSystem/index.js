@@ -2,8 +2,7 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import R from 'ramda'
 
-import { notifyCompleted } from 'actions'
-import { Store } from 'actions/constants'
+import { notifyCompleted, Notify } from 'ducks/notifications/actions'
 
 @connect(stateToProps, dispatchToProps)
 class NotificationSystem extends Component {
@@ -22,7 +21,7 @@ class NotificationSystem extends Component {
   showAllNotifications () {
     const showNotification = (action) => {
       switch (action.type) {
-        case Store.NOTIFY_LOGIN_SUCCESS:
+        case Notify.LOGIN_SUCCESS:
           UIkit.notify({
             message: 'Login Succeeded!',
             status: 'success',
@@ -31,7 +30,7 @@ class NotificationSystem extends Component {
           })
           break
 
-        case Store.NOTIFY_LOGIN_FAIL:
+        case Notify.LOGIN_FAIL:
           UIkit.notify({
             message: action.message,
             status: 'danger',
@@ -49,10 +48,8 @@ class NotificationSystem extends Component {
   }
 }
 
-function stateToProps (state) {
-  return {
-    notifications: state.notifications
-  }
+function stateToProps ({ notifications }) {
+  return { notifications }
 }
 
 function dispatchToProps (dispatch) {

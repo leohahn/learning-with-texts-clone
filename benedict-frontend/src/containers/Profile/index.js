@@ -1,12 +1,9 @@
 import React, { Component } from 'react'
-import { connect } from 'react-redux'
 
-import { Saga } from 'actions/constants'
 import { Word } from 'components/Word'
 import { Knowledge } from 'types'
 
-@connect() // Inject only dispatch
-export default class Profile extends Component {
+class Profile extends Component {
   render () {
     return (
       <div>
@@ -17,13 +14,9 @@ export default class Profile extends Component {
                       name='Word'
                 />
         </span>
-        <button onClick={() => this.props.dispatch({
-          type: Saga.USER_LOGIN_REQUEST,
-          body: { username: 'lhahn', password: 'abcdef' }})}
-        >
-          LOGIN!
-        </button>
       </div>
     )
   }
 }
+
+export default Profile

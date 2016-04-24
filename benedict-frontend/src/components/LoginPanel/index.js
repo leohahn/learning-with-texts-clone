@@ -1,5 +1,4 @@
 import React, { PropTypes, Component } from 'react'
-import { Link } from 'react-router'
 
 import styles from './styles.css'
 
@@ -58,4 +57,5 @@ export default class LoginPanel extends Component {
     }
   }
 }
+
 export default LoginPanel

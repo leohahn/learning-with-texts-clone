@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 
-import { menuSelect } from 'actions'
+import { menuSelect } from 'ducks/menu'
 import Navbar from 'components/Navbar'
 
 const loggedItems = [
@@ -20,7 +20,16 @@ const loggedItems = [
 const unloggedItems = [
 ]
 
-const mapStateToProps = ({ menu, account }) => {
+@connect(stateToProps, dispatchToProps)
+class TopMenu extends Component {
+  render () {
+    return (
+      <Navbar { ...this.props } />
+    )
+  }
+}
+
+function stateToProps ({ menu, account }) {
   const loggedIn = account.status.loggedIn
 
   return {
@@ -29,17 +38,10 @@ const mapStateToProps = ({ menu, account }) => {
   }
 }
 
-const mapDispatchToProps = (dispatch) => {
+function dispatchToProps (dispatch) {
   return {
     onClick: (selection) => dispatch(menuSelect(selection))
   }
 }
 
-@connect(mapStateToProps, mapDispatchToProps)
-export default class TopMenu extends Component {
-  render () {
-    return (
-      <Navbar { ...this.props } />
-    )
-  }
-}
+export default TopMenu

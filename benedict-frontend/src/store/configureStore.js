@@ -1,9 +1,9 @@
 import { applyMiddleware, createStore } from 'redux'
 import sagaMiddleware from 'redux-saga'
 import createLogger from 'redux-logger'
-import rootReducer from '../reducers'
+import rootReducer from '../rootReducer'
 /* Importing sagas */
-import { watchUserLogin } from 'actions/sagas'
+import { watchAccountLogin } from 'ducks/account/sagas'
 
 export default function configureStore (initialState) {
   const loggerMiddleware = createLogger({
@@ -15,7 +15,7 @@ export default function configureStore (initialState) {
   // Logger: Logs the state on the console as it changes.
   // Saga:   Middleware that helps using asyncronous actions.
   const middlewares = applyMiddleware(
-    sagaMiddleware(watchUserLogin),
+    sagaMiddleware(watchAccountLogin),
     loggerMiddleware
   )
   // Creates the store with the middlewares defined above.
@@ -23,8 +23,8 @@ export default function configureStore (initialState) {
 
   if (module.hot) {
     // Enable Webpack hot module replacement for reducers
-    module.hot.accept('../reducers', () => {
-      const nextRootReducer = require('../reducers').default
+    module.hot.accept('../rootReducer', () => {
+      const nextRootReducer = require('../rootReducer').default
       store.replaceReducer(nextRootReducer)
     })
   }

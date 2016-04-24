@@ -1,5 +1,6 @@
 import R from 'ramda'
-import { Store } from 'actions/constants'
+
+import { Account } from './actions'
 
 const initialState = {
   token: null,
@@ -20,9 +21,9 @@ const initialState = {
   }
 }
 
-export function account (state = initialState, action) {
+export default function account (state = initialState, action) {
   switch (action.type) {
-    case Store.USER_LOGIN_SUCCESS:
+    case Account.LOGIN_SUCCESS:
       return R.pipe(
         R.assocPath(['status', 'loggedIn'], true),
         R.assocPath(['status', 'processing'], false),
@@ -30,7 +31,7 @@ export function account (state = initialState, action) {
         R.assoc('token', action.token)
       )(state)
 
-    case Store.USER_LOGIN_FAIL:
+    case Account.LOGIN_FAIL:
       return R.pipe(
         R.assocPath(['status', 'loggedIn'], false),
         R.assocPath(['status', 'processing'], false),
@@ -38,7 +39,7 @@ export function account (state = initialState, action) {
         R.assoc('token', null)
       )(state)
 
-    case Store.USER_LOGIN_PROCESSING:
+    case Account.LOGIN_PROCESSING:
       return R.pipe(
         R.assocPath(['status', 'loggedIn'], false),
         R.assocPath(['status', 'processing'], true),
