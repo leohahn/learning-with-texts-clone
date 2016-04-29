@@ -8,6 +8,19 @@ export class LoginCtrl {
       username: 'lhahn',
       password: 'abcdef'
     }
+    this.status = {
+      ok: true,
+      message: '',
+      className: ''
+    }
+  }
+
+  setErrorStatus (message) {
+    this.status = {
+      ok: false,
+      message,
+      className: 'alert alert-danger'
+    }
   }
 
   submitCredentials () {
@@ -18,6 +31,7 @@ export class LoginCtrl {
           this.redirectTo('home')
         } else {
           this.$log.log(status.message)
+          this.setErrorStatus(status.message)
         }
       })
   }

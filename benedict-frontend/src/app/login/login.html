@@ -8,6 +8,9 @@
         <form class="login-form-signin">
           <input type="text" ng-model="login.credentials.username" class="form-control" placeholder="Username" required autofocus>
           <input type="password" ng-model="login.credentials.password" class="form-control" placeholder="Password" required>
+
+          <div ng-hide="login.status.ok" ng-class="login.status.className" role="alert">{{login.status.message}}</div>
+
           <button class="btn btn-lg btn-primary btn-block" type="submit"
                   ng-click="login.submitCredentials()">
             Sign in
