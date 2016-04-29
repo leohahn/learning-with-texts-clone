@@ -1,7 +1,7 @@
-export class MainController {
+export class MainCtrl {
   constructor ($log, $timeout, webDevTec, toastr) {
     'ngInject'
-    $log.log('ENTERED MAIN')
+
     this.awesomeThings = []
     this.classAnimation = ''
     this.creationDate = 1461714263954

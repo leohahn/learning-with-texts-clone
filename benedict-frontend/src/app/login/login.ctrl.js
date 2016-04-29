@@ -28,7 +28,7 @@ export class LoginCtrl {
       .then((status) => {
         if (status.ok) {
           this.$log.log(status.message)
-          this.redirectTo('home')
+          this.redirectTo('main.home')
         } else {
           this.$log.log(status.message)
           this.setErrorStatus(status.message)
